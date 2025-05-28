@@ -5,6 +5,27 @@
   "manifest_version": 3,
   "action": {
     "default_popup": "default.html",
-    "default_icon": "wumpus.png"
-  }
+    "default_icon": "images/wumpus.png"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/shorts.js"],
+      "matches": [
+        "https://www.youtube.com/*"
+      ]
+    }, {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://developer.chrome.com/docs/extensions/*",
+        "https://developer.chrome.com/docs/webstore/*"
+      ]
+    }
+  ],
+  "permissions": [
+    "scripting",
+    "tabs"
+  ]
 }
