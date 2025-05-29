@@ -3,13 +3,11 @@ function removePopUps() {
     // let popups = document.querySelectorAll("div#dismissible.style-scope.ytd-rich-shelf-renderer");
     let popups = document.querySelectorAll("ytd-rich-section-renderer.style-scope.ytd-rich-grid-renderer");
     
-    // ! DEBUG STATEMENT
     if (popups.length != 0) {
-        console.log("removing shorts: ", popups);
+        console.log("Removing shorts: ", popups);
     }
 
     popups.forEach((popup) => {
-        console.log(popup);
         popup.remove();
     });
 }
@@ -18,7 +16,7 @@ function removeShortsButton() {
     let shortsButton = document.querySelector('ytd-mini-guide-entry-renderer[aria-label="Shorts"]');
 
     if (shortsButton) {
-        console.log("Here's the shorts button: ", shortsButton);
+        console.log("Removing shorts button: ", shortsButton);
         shortsButton.remove();
     }
 }
@@ -27,7 +25,7 @@ function removeReelShelf() {
     let reelShelf = document.querySelector('ytd-reel-shelf-renderer');
 
     if (reelShelf) {
-        console.log("Here's the reel shelf: ", reelShelf);
+        console.log("Removing reel shelf: ", reelShelf);
         reelShelf.remove();
     }
 }
@@ -57,41 +55,47 @@ function createIndicator() {
 function logger(records, observer) {
     for (const record of records) {
         if (record.addedNodes) {
-            removePopUps();
-            removeShortsButton();
-            removeReelShelf();
+            editPage();
+            break;
         }
+    }
+
+    if (!document.querySelector("div#content")) {
+        observer.disconnect();
     }
 }
 
-function observe() {
+function editPage() {
+    removePopUps();
+    removeShortsButton();
+    removeReelShelf();
+}
+
+if (window.hasRun === true) {
+    console.log("Already running!");
+} else {
+    window.hasRun = true;
+
+    // createIndicator();
+
+    let body = document.querySelector("div#content.style-scope.ytd-app");
+    // console.log(body);
+
+    // const browse = document.querySelector("ytd-browse");
+    // console.log(browse);
+
+    // const columns = document.querySelector("ytd-two-column-browse-results-renderer");
+    // console.log(columns);
+
+    // const content = document.querySelector("div#contents.style-scope.ytd-rich-grid-renderer"); // not seen at runtime
+    // console.log(content);
+
     let observer = new MutationObserver(logger);
 
     const observerOptions = {
-    childList: true,
-    subtree: true,
+        childList: true,
+        subtree: true,
     };
 
     observer.observe(body, observerOptions);
 }
-
-console.log("Removing shorts...")
-
-// 0. Indicate that the extension is active
-// createIndicator();
-
-const body = document.querySelector("div#content.style-scope.ytd-app");
-// console.log(body);
-
-// const browse = document.querySelector("ytd-browse");
-// console.log(browse);
-
-// const columns = document.querySelector("ytd-two-column-browse-results-renderer");
-// console.log(columns);
-
-// const content = document.querySelector("div#contents.style-scope.ytd-rich-grid-renderer"); // not seen at runtime
-// console.log(content);
-
-observe();
-
-console.log("shorts have been removed!");

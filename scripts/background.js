@@ -21,7 +21,8 @@ function redirect(tabId) {
 }
 
 let tabUpdateHandler = (tabId, {url: updatedUrl, status}, tab) => {
-    if (updatedUrl.startsWith("https://www.youtube.com/shorts/")) {
+    console.log(updatedUrl);
+    if (updatedUrl?.startsWith("https://www.youtube.com/shorts/")) {
         redirect(tabId);
     } else if (updatedUrl) {
         removeShorts(tabId);
