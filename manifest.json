@@ -16,19 +16,6 @@
       "matches": [
         "https://www.youtube.com/*"
       ]
-    },
-    {
-      "js": ["scripts/redirect.js"],
-      "matches": [
-        "https://www.youtube.com/shorts/*"
-      ]
-    }, 
-    {
-      "js": ["scripts/content.js"],
-      "matches": [
-        "https://developer.chrome.com/docs/extensions/*",
-        "https://developer.chrome.com/docs/webstore/*"
-      ]
     }
   ],
   "permissions": [
