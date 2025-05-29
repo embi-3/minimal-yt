@@ -10,14 +10,6 @@
   "background": {
     "service_worker": "scripts/background.js"
   },
-  "content_scripts": [
-    {
-      "js": ["scripts/shorts.js"],
-      "matches": [
-        "https://www.youtube.com/*"
-      ]
-    }
-  ],
   "permissions": [
     "scripting",
     "tabs"

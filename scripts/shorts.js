@@ -21,6 +21,14 @@ function removeShortsButton() {
     }
 }
 
+function removeShortsSidebar() {
+    let shortsSidebar = document.querySelectorAll('[title="Shorts"]');
+
+    if (shortsSidebar.length > 0) {
+        shortsSidebar.forEach((node) => node.remove());
+    }
+}
+
 function removeReelShelf() {
     let reelShelf = document.querySelector('ytd-reel-shelf-renderer');
 
@@ -68,6 +76,7 @@ function logger(records, observer) {
 function editPage() {
     removePopUps();
     removeShortsButton();
+    removeShortsSidebar();
     removeReelShelf();
 }
 
