@@ -25,7 +25,10 @@ function removeShortsSidebar() {
     let shortsSidebar = document.querySelectorAll('[title="Shorts"]');
 
     if (shortsSidebar.length > 0) {
-        shortsSidebar.forEach((node) => node.remove());
+        shortsSidebar.forEach((node) => {
+            console.log("Removing sidebar button: ", node);
+            node.remove()
+        });
     }
 }
 
@@ -64,13 +67,12 @@ function logger(records, observer) {
     for (const record of records) {
         if (record.addedNodes) {
             editPage();
-            break;
         }
     }
 
-    if (!document.querySelector("div#content")) {
-        observer.disconnect();
-    }
+    // if (!document.querySelector("div#content")) {
+    //     observer.disconnect();
+    // }
 }
 
 function editPage() {
@@ -80,31 +82,31 @@ function editPage() {
     removeReelShelf();
 }
 
-if (window.hasRun === true) {
-    console.log("Already running!");
-} else {
-    window.hasRun = true;
+// if (window.hasRun === true) {
+//     console.log("Already running!");
+// } else {
+// window.hasRun = true;
 
-    // createIndicator();
+// createIndicator();
 
-    let body = document.querySelector("div#content.style-scope.ytd-app");
-    // console.log(body);
+let body = document.querySelector("div#content.style-scope.ytd-app");
+// console.log(body);
 
-    // const browse = document.querySelector("ytd-browse");
-    // console.log(browse);
+// const browse = document.querySelector("ytd-browse");
+// console.log(browse);
 
-    // const columns = document.querySelector("ytd-two-column-browse-results-renderer");
-    // console.log(columns);
+// const columns = document.querySelector("ytd-two-column-browse-results-renderer");
+// console.log(columns);
 
-    // const content = document.querySelector("div#contents.style-scope.ytd-rich-grid-renderer"); // not seen at runtime
-    // console.log(content);
+// const content = document.querySelector("div#contents.style-scope.ytd-rich-grid-renderer"); // not seen at runtime
+// console.log(content);
 
-    let observer = new MutationObserver(logger);
+let observer = new MutationObserver(logger);
 
-    const observerOptions = {
-        childList: true,
-        subtree: true,
-    };
+const observerOptions = {
+    childList: true,
+    subtree: true,
+};
 
-    observer.observe(body, observerOptions);
-}
+observer.observe(body, observerOptions);
+// }
