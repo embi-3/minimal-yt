@@ -80,15 +80,9 @@ function editPage() {
     removeReelShelf();
 }
 
-if (window.hasRun === true) {
-    console.log("Already running!");
-} else {
-    window.hasRun = true;
-
-    // createIndicator();
-
-    let body = document.querySelector("div#content.style-scope.ytd-app");
-    // console.log(body);
+function createObserver(body) {    
+    // let body = document.querySelector("div#content");
+    // console.log("body:", body);
 
     // const browse = document.querySelector("ytd-browse");
     // console.log(browse);
@@ -107,4 +101,26 @@ if (window.hasRun === true) {
     };
 
     observer.observe(body, observerOptions);
+}
+
+function checkContent() {
+    body = document.querySelector("div#content")
+    if (body) {
+        clearInterval(interval);
+        createObserver(body);
+    }
+}
+
+if (window.hasRun === true) {
+    console.log("Already running!");
+} else {
+    console.log("Now running!")
+    window.hasRun = true;
+
+    // Checks whether the body element has been created yet.
+    // See: https://stackoverflow.com/questions/42731323/content-script-not-executing-in-new-window
+    // Find a good interval to check for the body
+    var interval = setInterval(checkContent, 250);
+
+    // createIndicator();
 }

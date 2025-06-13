@@ -21,10 +21,10 @@ function redirect(tabId) {
 }
 
 let tabUpdateHandler = (tabId, {url: updatedUrl, status}, tab) => {
-    console.log(updatedUrl);
+    console.log("tab id:", tabId, "url:", updatedUrl);
     if (updatedUrl?.startsWith("https://www.youtube.com/shorts/")) {
         redirect(tabId);
-    } else if (updatedUrl) {
+    } else if (updatedUrl?.startsWith("https://www.youtube.com/*")) {
         removeShorts(tabId);
     }
 }
