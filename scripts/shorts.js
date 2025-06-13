@@ -1,3 +1,5 @@
+const CHECK_INTERVAL = 20
+
 function removePopUps() {
     // let shorts = document.querySelectorAll("div#content.style-scope.ytd-rich-section-renderer");
     // let popups = document.querySelectorAll("div#dismissible.style-scope.ytd-rich-shelf-renderer");
@@ -104,7 +106,7 @@ function createObserver(body) {
 }
 
 function checkContent() {
-    body = document.querySelector("div#content")
+    let body = document.querySelector("div#content")
     if (body) {
         clearInterval(interval);
         createObserver(body);
@@ -114,13 +116,18 @@ function checkContent() {
 if (window.hasRun === true) {
     console.log("Already running!");
 } else {
-    console.log("Now running!")
     window.hasRun = true;
+    console.log("Now running!")
 
     // Checks whether the body element has been created yet.
     // See: https://stackoverflow.com/questions/42731323/content-script-not-executing-in-new-window
-    // Find a good interval to check for the body
-    var interval = setInterval(checkContent, 250);
+    if (document.querySelector("div#content")) {
+        let body = document.querySelector("div#content")
+        createObserver(body)
+    } else {
+        // Find a good interval to check for the body
+        var interval = setInterval(checkContent, CHECK_INTERVAL);
+    }
 
     // createIndicator();
 }
